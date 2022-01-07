@@ -15,15 +15,23 @@ const allErrors =
 { 
   invalidRegistrationParams: {
     message: "Either username or password params are invalid",
-    code: 403
+    code: 401
   },
   missingRegistrationParams: {
     message: "Either username or password params are missing",
-    code: 403
+    code: 400
   },
   incorrectKey: { 
     message: "Incorrect Key",
-     code: 403 
+     code: 401 
+  },
+  missingKey: { 
+    message: "Missing Key",
+     code: 400 
+  },
+  expiredKey: { 
+    message: "Expired Key",
+     code: 400 
   },
   badToken: {
      message: "Bad token",

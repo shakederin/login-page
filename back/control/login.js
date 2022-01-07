@@ -1,7 +1,8 @@
 const User = require("../mongoDB/userModel");
 const sendMail = require("./emailMannage");
 const { generateKey } = require("./generateKey");
-const {verifyPassword} = require("./hash")
+const {verifyPassword} = require("./hash");
+const { createToken } = require("./token");
 const authCodes = []
 
 exports.firstDoor = async (req, res, next) => {
@@ -43,25 +44,29 @@ exports.firstDoor = async (req, res, next) => {
 }
 
 
-exports.secondDoor =(req, res) => {
-const { token, username } = req.body;
+exports.secondDoor =(req, res, next) => {
+    const { key, username } = req.body;
 
-for (const tokenOBJ of authCodes) {
-    if (tokenOBJ.username === username) {
-        if (tokenOBJ.token === token) {
-            // redirect to other server
-            const key = nanoid()
-            DBKeys.push(key)
-            console.log(key);
-            res.cookie("access", key);
-            res.send("you may enter");
-            return;
-        } else {
-            res.send("wrong token");
-            return;
+    if(!key){
+        next("Missing Key");
+        return;
+    }
+
+    for (const codeOBJ of authCodes) {
+        if (codeOBJ.username === username) {
+            if (codeOBJ.key === key) {
+                const token = createToken(username)
+                // redirect to other server
+                console.log(key);
+                res.cookie("token", token);
+                res.send("you may enter");
+                return;
+            } else {
+                next("Incorrect Key");
+                return;
+            }
         }
     }
-}
-res.send("wrong/invalid token");
+    next("Incorrect Key");
 }
 
