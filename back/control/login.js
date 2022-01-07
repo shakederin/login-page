@@ -12,7 +12,6 @@ exports.firstDoor = async (req, res, next) => {
     };
     try {
         const userObject = await User.find({username});  
-        console.log(userObject[0].email);
         if (!(await verifyPassword(password, userObject[0].password))) {
             next("Either username or password params are invalid")
             return;
