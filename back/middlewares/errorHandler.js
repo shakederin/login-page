@@ -1,9 +1,10 @@
 exports.ErrorHandler = (err, req, res, next) => {
+  console.log("in error handeling");
   for (const error in allErrors){
-    if(allErrors[error].message === err.message) {
+    if(allErrors[error].message === err) {
       res
         .status(allErrors[error].code)
-        .json({ message: errorCodes[error].message });
+        .json({ message: allErrors[error].message });
       return;
     }
   }

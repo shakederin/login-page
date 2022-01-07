@@ -1,4 +1,4 @@
-const User = require("./userModel");
+const User = require("../mongoDB/userModel");
 const  Mongoose  = require("mongoose");
 const { hashPassword } = require("./hash");
 require('dotenv').config();
@@ -24,6 +24,7 @@ exports.addUser = async (req, res, next)=>{
         await User.insertMany(newUser);
         res.send("User add successfully")
     } catch (error) {
+        console.log(error);
         next("couldn't add new user")
     }
 }
