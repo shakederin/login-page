@@ -17,9 +17,10 @@ exports.firstDoor = async (req, res, next) => {
             next("Either username or password params are invalid")
             return;
         };
+
         const key = generateKey();
         console.log(key);
-
+        removeKey(username)
         authCodes.push({ username, key }); 
 
         setTimeout(() => {                                    
@@ -35,14 +36,13 @@ exports.firstDoor = async (req, res, next) => {
         }, 60*1000);
 
         // sendMail(userObject[0].email, username, key);
-        res.send("valide params");
+        res.send(userObject[0].admin);
 
     } catch (error) {
         next("Either username or password params are invalid")
         return;
     }  
 }
-
 
 exports.secondDoor =(req, res, next) => {
     const { key, username } = req.body;
@@ -70,3 +70,10 @@ exports.secondDoor =(req, res, next) => {
     next("Incorrect Key");
 }
 
+const removeKey = (username) =>{
+    for(let i = 0; i < authCodes.length; i++){
+        if(authCodes[i].username === username){
+            authCodes.splice(i,1)
+        }
+    }
+}

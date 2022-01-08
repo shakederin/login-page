@@ -13,6 +13,7 @@ Mongoose.connect(connectionString)
 
 exports.addUser = async (req, res, next)=>{
     const {username, password, email} = req.body;
+    console.log({username, password, email});
     const hashedPassword = await hashPassword(password)
     const newUser = {
         username,
@@ -43,4 +44,5 @@ exports.deleteUser = async (req, res, next)=>{
         next("couldn't delete user")
     }
 }
+
 
