@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import {Button, Form, Modal} from "react-bootstrap";
 import axios from "axios";
 import Verify from "./Verify";
-import "../login.css"
+import "../style/login.css"
 const url = "http://localhost:8080";
 
 axios.defaults.withCredentials = true
@@ -13,7 +13,8 @@ export default function Login(props){
     const admin = props.admin;
     const userNameInput = useRef()
     const passwordInput = useRef()
-    
+    const message = useRef()
+    const verifyMessage = useRef()
 
     const handleClose = () => {
         userNameInput.current.value = ""
@@ -32,7 +33,11 @@ export default function Login(props){
             console.log(response.data);
             handleShow()
         } catch (error) {
-            console.log(error);
+            console.log(error.response.data.message);
+            message.current.innerText = error.response.data.message
+            setTimeout(()=>{
+                message.current.innerText = ""
+            }, 3000)
         }
     }
 
@@ -43,18 +48,34 @@ export default function Login(props){
             code += input.value
         }
         if(code.length !== 6){
-            return
+            verifyMessage.current.innerText = "Missing Params";
+            setTimeout(() => {
+                verifyMessage.current.innerText = "";
+            }, 3000);
+            return;
         };
         const username = userNameInput.current.value;
-        const response = await axios.post(`${url}/verify`, {key: code, username});
-        console.log();
-        if(response.data === "wrong/invalid token" || response.data ==="wrong token"){
-            document.getElementById("closeVerify").click()
-            userNameInput.current.value ="";
-            passwordInput.current.value ="";
+        console.log(1);
+        try {
+            const response = await axios.post(`${url}/verify`, {key: code, username});
+            console.log(response.data);
             return
+        } catch (error) {
+            if(error.response.data.message === "Expired Key"){
+                verifyMessage.current.innerText = error.response.data.message + ". Please Login Again.";
+                setTimeout(() => {
+                    document.getElementById("closeVerify").click()
+                    verifyMessage.current.innerText = ""
+                    userNameInput.current.value ="";
+                    passwordInput.current.value ="";
+                }, 4000);
+                return
+            }
+            verifyMessage.current.innerText = error.response.data.message + ". Please Try Again.";
+            setTimeout(() => {
+                verifyMessage.current.innerText = "";
+            }, 3000);
         }
-        console.log(response);
     }
 
     return(
@@ -69,7 +90,8 @@ export default function Login(props){
                     <Form.Label className="formTitle">Password</Form.Label>
                     <Form.Control className="formInput" ref={passwordInput} type="password" placeholder="Password" />
                 </Form.Group>
-                <Button style={{marginBottom:"4vh"}} className="formInput" onClick={submitForm} variant="primary" type="submit">Login</Button>                  
+                <Button style={{marginBottom:"4vh"}} className="formInput" onClick={submitForm} variant="primary" type="submit">Login</Button>  
+                <div ref={message} style={{display:"flex", justifyContent:"center" , color:`red`, padding:"2vh"}}></div>                
             </div>
      
 
@@ -106,6 +128,7 @@ export default function Login(props){
                     </div>
                 }
                 </Modal.Footer>
+                <div ref={verifyMessage} style={{display:"flex", justifyContent:"center", color:`red`, fontSize:"3vh", textAlign:"center"}}></div>
             </Modal>
         </div>
     )

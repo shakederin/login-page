@@ -59,7 +59,7 @@ exports.secondDoor =(req, res, next) => {
                 // redirect to other server
                 console.log(key);
                 res.cookie("token", token);
-                res.send("you may enter");
+                res.redirect("http://localhost:8080/home");
                 return;
             } else {
                 next("Incorrect Key");
@@ -67,7 +67,7 @@ exports.secondDoor =(req, res, next) => {
             }
         }
     }
-    next("Incorrect Key");
+    next("Expired Key");
 }
 
 const removeKey = (username) =>{

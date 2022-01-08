@@ -12,9 +12,7 @@ export default function RemoveUser(props) {
     const message = useRef()
     
     const removeUser = async () =>{
-
         const username = userNameInput.current.value;
-
         if(!username) return;
         try {
             const response = await axios.post(`${url}/deleteuser`, {username}, { withCredentials: true });
@@ -29,7 +27,7 @@ export default function RemoveUser(props) {
             message.current.innerText = "Someting Went Wrong, Please Try Again"
             setTimeout(()=>{
                 message.current.innerText = ""
-            }, 3000)
+            }, 4000)
             console.log(error.response.data.message);
         }
         userNameInput.current.value = "";

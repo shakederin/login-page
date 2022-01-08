@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import "../style/welcome.css"
 export default function Welcome(){
     return(
         <div>
