@@ -33,7 +33,7 @@ export default function AddUser(props) {
             setTimeout(()=>{
                 message.current.innerText = ""
             }, 3000)
-            console.log(error);
+            console.log(error.response.data.message);
         }
         userNameInput.current.value = "";
         passwordInput.current.value = "";
