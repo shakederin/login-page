@@ -8,13 +8,13 @@ const authCodes = []
 exports.firstDoor = async (req, res, next) => {
     const { username, password } = (req.body);
     if(!username || !password){
-        next("Either username or password params are missing");
+        next("Either username or password are missing");
         return
     };
     try {
         const userObject = await User.find({username});  
         if (!(await verifyPassword(password, userObject[0].password))) {
-            next("Either username or password params are invalid")
+            next("Either username or password are invalid")
             return;
         };
 
@@ -39,7 +39,7 @@ exports.firstDoor = async (req, res, next) => {
         res.send(userObject[0].admin);
 
     } catch (error) {
-        next("Either username or password params are invalid")
+        next("Either username or password are invalid")
         return;
     }  
 }

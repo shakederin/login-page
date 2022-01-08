@@ -26,7 +26,13 @@ export default function Login(props){
     const submitForm = async ()=>{
         const username = userNameInput.current.value;
         const password = passwordInput.current.value;
-        if(!password || !username) return;
+        if(!password || !username) {
+            message.current.innerText = "Either username or password are missing";
+            setTimeout(()=>{
+                message.current.innerText = ""
+            }, 3000)
+            return;
+        }
         try {
             const response = await axios.post(`${url}/login`, {username, password}, { withCredentials: true });
             props.setAdmin(response.data);

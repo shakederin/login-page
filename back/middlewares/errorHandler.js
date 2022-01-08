@@ -14,11 +14,11 @@ exports.ErrorHandler = (err, req, res, next) => {
 const allErrors = 
 { 
   invalidRegistrationParams: {
-    message: "Either username or password params are invalid",
+    message: "Either username or password are invalid",
     code: 401
   },
   missingRegistrationParams: {
-    message: "Either username or password params are missing",
+    message: "Either username or password are missing",
     code: 400
   },
   incorrectKey: { 
