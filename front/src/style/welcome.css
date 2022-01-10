@@ -5,7 +5,63 @@ html {
 body{
     height: 100%;
     width: 100%;
-  
+    overflow-y:hidden;
+    display: grid;
+    background-color:rgb(226, 250, 248);
+    grid-template-rows: 20% 80%;
+}
+
+.header{
+    background-color: rgb(2, 17, 83);
+    height: 100%;
+    background-image: url("./Sasa-Software-logo.png");
     background-repeat: no-repeat;
-    background-size:cover;
+    background-attachment: fixed;  
+    background-size: 40% 18%;
+    min-height: 90px;
+}
+
+.bigBtn{
+    font-size: 20px;
+    margin-left: auto;
+}
+.Welcome{
+    background-color: white;
+}
+.loginCard{
+    background-color: white;
+    margin: 5% auto auto auto;
+    width: 30%;
+}
+
+@media only screen and (max-width: 1000px){
+    .header{
+        background-color: rgb(2, 17, 83);
+        height: 100%;
+        background-image: url("./Sasa-Software-logo.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;  
+        background-size: 400px 18%;
+        min-height: 90px;
+    }
+    .loginCard{
+        margin: 5% auto auto auto;
+        width: 330px;
+    }
+}
+
+@media only screen and (min-width: 1500px){
+    .header{
+        background-color: rgb(2, 17, 83);
+        height: 100%;
+        background-image: url("./Sasa-Software-logo.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;  
+        background-size: 600px 18%;;
+        min-height: 90px;
+    }
+    .loginCard{
+        margin: 5% auto auto auto;
+        width: 330px;
+    }
 }

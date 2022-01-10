@@ -24,7 +24,7 @@ textarea{
 
 .formbg {
     background-color: rgb(230, 187, 131);
-    margin: 10% auto auto auto;
+    margin: 5% auto auto auto;
     font-size: 20px;
     width: 100%;
     max-width: 448px;
@@ -34,7 +34,7 @@ textarea{
 }
 .formbgAdd {
     background-color: rgb(230, 187, 131);
-    margin: auto;
+    margin: 2% auto auto auto;
     font-size: 20px;
     width: 100%;
     max-width: 448px;

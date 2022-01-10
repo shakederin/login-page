@@ -59,7 +59,8 @@ exports.secondDoor =(req, res, next) => {
                 // redirect to other server
                 console.log(key);
                 res.cookie("token", token);
-                res.redirect("http://localhost:8080/home");
+                // res.redirect("http://localhost:8080");     
+                res.send("http://localhost:8080/home");
                 return;
             } else {
                 next("Incorrect Key");

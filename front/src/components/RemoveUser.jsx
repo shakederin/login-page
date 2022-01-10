@@ -37,10 +37,10 @@ export default function RemoveUser(props) {
         <div>
         {admin ?
             <div>
-                <Link to={"/"}>
-                    <div style={{ marginLeft:"8%", width: "6vh", padding:"5vh", fontSize:"40px"}}><i className="fas fa-arrow-left"></i></div>
-                </Link>
                 <div className="formbgAdd">
+                <Link to={"/"}>
+                    <div style={{ marginLeft:"2%", fontSize:"40px"}}><i className="fas fa-arrow-left"></i></div>
+                </Link>
                     <h2 className="formHeader">Remove User</h2>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label className="formTitle">Remove By User Name</Form.Label>

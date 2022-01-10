@@ -61,12 +61,13 @@ export default function Login(props){
             return;
         };
         const username = userNameInput.current.value;
-        console.log(1);
         try {
             const response = await axios.post(`${url}/verify`, {key: code, username});
-            console.log(response.data);
+            console.log(response.data, 2);
+            window.location.replace(response.data);
             return
         } catch (error) {
+            console.log("inerror");
             if(error.response.data.message === "Expired Key"){
                 verifyMessage.current.innerText = error.response.data.message + ". Please Login Again.";
                 setTimeout(() => {
