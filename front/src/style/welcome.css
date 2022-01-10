@@ -7,7 +7,7 @@ body{
     width: 100%;
     overflow-y:hidden;
     display: grid;
-    background-color:rgb(226, 250, 248);
+    background-image: url("https://www.sasa-software.com/wp-content/uploads/2020/12/slid_bg.png");
     grid-template-rows: 20% 80%;
 }
 
@@ -52,7 +52,7 @@ body{
 
 @media only screen and (min-width: 1500px){
     .header{
-        background-color: rgb(2, 17, 83);
+        background-color: #0a3d63;
         height: 100%;
         background-image: url("./Sasa-Software-logo.png");
         background-repeat: no-repeat;
