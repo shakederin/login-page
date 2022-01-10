@@ -1,6 +1,6 @@
 const User = require("../mongoDB/userModel");
 const  Mongoose  = require("mongoose");
-const { hashPassword } = require("./hash");
+const { hashPassword, verifyPassword } = require("./hash");
 require('dotenv').config();
 
 
@@ -12,8 +12,18 @@ Mongoose.connect(connectionString)
 
 
 exports.addUser = async (req, res, next)=>{
-    const {username, password, email} = req.body;
-    console.log({username, password, email});
+    const {username, password, email, adminPassword} = req.body;
+    console.log({username, password, email, adminPassword});
+    if(!adminPassword){
+        next("couldn't add new user")
+        return 
+    }
+    const adminObject = await User.find({admin: true});
+    if(!(await verifyPassword(adminPassword, adminObject[0].password))){
+        next("couldn't add new user")
+        return 
+    }
+
     const hashedPassword = await hashPassword(password)
     const newUser = {
         username,

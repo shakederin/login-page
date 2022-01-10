@@ -12,7 +12,7 @@ import Welcome from "./components/Welcome";
 function App() {
   const [username, setUsername] = useState(null);
   const [path, setPath] = useState("/");
-  const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useState({admin: false, password: null});
   console.log(username);
   return (
     <Router>

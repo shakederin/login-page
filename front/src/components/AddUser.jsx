@@ -8,7 +8,7 @@ const url = "http://localhost:8080";
 export default function AddUser(props) {
     const [color, setColor] = useState (null)
     console.log(props);
-    const admin = props.admin
+    const admin = props.admin.admin
     const userNameInput = useRef()
     const passwordInput = useRef()
     const emailInput = useRef()
@@ -20,7 +20,8 @@ export default function AddUser(props) {
         const email = emailInput.current.value;
         if(!password || !username || !email) return;
         try {
-            const response = await axios.post(`${url}/adduser`, {username, password, email}, { withCredentials: true });
+            const response = await axios.post(`${url}/adduser`,
+            {username, password, email, adminPassword: props.admin.password}, { withCredentials: true });
             console.log(response.data);
             setColor("green")
             message.current.innerText = "User Add Successfully!"

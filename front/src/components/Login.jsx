@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true
 
 export default function Login(props){
     const [show, setShow] = useState(false);
-    const admin = props.admin;
+    const admin = props.admin.admin;
     const userNameInput = useRef()
     const passwordInput = useRef()
     const message = useRef()
@@ -35,7 +35,7 @@ export default function Login(props){
         }
         try {
             const response = await axios.post(`${url}/login`, {username, password}, { withCredentials: true });
-            props.setAdmin(response.data);
+            props.setAdmin({admin: response.data, password: passwordInput.current.value});
             console.log(response.data);
             handleShow()
         } catch (error) {
@@ -122,10 +122,10 @@ export default function Login(props){
                         <Button id="closeVerify" variant="secondary" onClick={handleClose}>Close</Button>
                         <Button className="blueButton" id="sumbmitVerify" onClick={submitVerify} variant="primary">Submit</Button> 
                         <Link to="/user/add">
-                            <Button className="blueButton" admin={1} variant="success">Add User</Button>
+                            <Button className="blueButton" variant="success">Add User</Button>
                         </Link>
                         <Link to="/user/remove">
-                            <Button className="blueButton" admin={admin.toString()} variant="danger">Remove User</Button>
+                            <Button className="blueButton" variant="danger">Remove User</Button>
                         </Link>
                     </div> 
                 :
